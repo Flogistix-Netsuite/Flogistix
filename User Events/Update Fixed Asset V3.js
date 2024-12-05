@@ -20,7 +20,7 @@ define(['N/record', 'N/log'], function(record, log){
     //    custbody_rental_unit_location_dropdown: 'custrecord_current_location',              //Fixed - Unsourced - Formed - Deleted - Type is dumb and ugly and ultimately incompatible?
         custbody_rental_unit_county:'custrecord_current_county',                            //OK
         custbody_rental_unit_state:'custrecord_current_state',                              //OK
- //     custbody_application_type: 'custrecord_ae_at_application_type',                     //Fixed - Sourced - Formed
+        custbody_application_type: 'custrecord_ae_at_application_type',                     //Fixed - Sourced - Formed
         custbody_sched_a_contract_terms: 'custrecord_ae_at_sched_a_contract_terms',         //Fixed - Sourced - Formed
         custbody_rental_start_date: 'custrecord_ae_at_rental_unit_set_date',
         custbody_new_rental_monthly_rate: 'custrecord_rental_rate',
@@ -30,6 +30,16 @@ define(['N/record', 'N/log'], function(record, log){
         custbody_scheduled_pm_completion_date:"custrecord_pm_completion_date",
         custbody_potential_bonus:"custrecord_potential_bonus",
         custbody_preserved:"custrecord_preserved_fam",
+        custbody_rental_unit_location_dropdown:"custrecord_current_location",
+        custbody32:'custrecord21',  //is standby
+        custbody33:'custrecord22',  //stand by start date
+        custbody34:'custrecord23',  //stand by end date
+        custbody46:'custrecord_total_addl_charge',
+        custbody47:'custrecord_total_chargeable',
+        custbody_rental_po_number:'custrecord_rental_po_number',
+      //  :'custrecord9',//contract start
+      //  :'custrecord10'//contract end
+      
     };
 
     var COMMITTED_STATUS = '1';
@@ -38,6 +48,8 @@ define(['N/record', 'N/log'], function(record, log){
     var SET_STATUS = '4';
     var PRICE_CHANGE_STATUS = '5';
     var Misc_STATUS = '6';
+    var MOVE_STATUS='11';
+    var INFORMATION_UPDATE='12';
 
 
     function convertToIcto(map){
@@ -95,7 +107,7 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody_field_sales_rep',       //Field Sales Representative
                     'custbody_rental_unit_customer',  //Customer
                     'custbody_rental_unit_county',          //County
-                 //   'custbody_rental_unit_location_dropdown',  //Customer Location
+                    'custbody_rental_unit_location_dropdown',  //Customer Location
                     'custbody_rental_unit_state',           //State
                     'custbody_sched_a_contract_terms',//Schedule A Contract Terms
                     'custbody_rental_start_date',           //Rental Start Date
@@ -115,7 +127,8 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody_rental_unit_state',               //State
                     context.newRecord.type ===
                     "intercompanytransferorder"?
-                        'tosubsidiary':'subsidiary',            //Subsidiary*/
+                        'tosubsidiary':'subsidiary',            //Subsidiary
+                        */
                     'custbody_to_status'                        //TO Status
                 ];
 
@@ -125,11 +138,13 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody_application_type',                //Application Type*
                     'custbody_rental_unit_county',              //County*
                     'custbody_rental_unit_customer',            //Customer*
+                    //'transferlocation'
                  //   'custbody_rental_unit_location_dropdown',   //Customer Location*
                     'custbody_field_sales_rep',                 //Field Sales Representative*
                     'custbody_rental_start_date',               //Rental Start Date*
                     'custbody_rental_unit_state',               //State*
                     'custbody_sched_a_contract_terms',  // Schedule A Contract Terms*
+                    'custbody_rental_po_number'
                 ];
 
                 var arrReleasePushFields = [
@@ -144,13 +159,60 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody_field_sales_rep',       //Field Sales Representative
                     'custbody_rental_unit_customer',  //Customer
                     'custbody_rental_unit_county',          //County
+                    'custbody_rental_unit_location_dropdown',//customer location
+
+                  
                  //   'custbody_rental_unit_location_dropdown',  //Customer Location
                     'custbody_rental_unit_state',           //State
                     'custbody_sched_a_contract_terms',//Schedule A Contract Terms
                     'custbody_rental_start_date',           //Rental Start Date
                     'custbodyrental_unit_monthly_rate',     //Monthly Rate
                     'custbody_application_type',      //Application Type
-                    'custbody_to_status'                    //TO Status
+                    'custbody_to_status',                    //TO Status
+                  'custbody32',//is standby
+                    'custbody33',//standby start
+                    'custbody34',//standby end
+                    'custbody46',//total additional charges
+                    'custbody47',//total charges
+                    'custbody_rental_po_number',
+                ];
+              var moveSetFields = [
+                    'subsidiary',                           //Subsidiary
+                    'class',                                    //Operating Area/BU.
+                    'custbody_ae_at_account_manager',       //Account Manager
+                    'custbody_field_sales_rep',       //Field Sales Representative
+                    'custbody_rental_unit_customer',  //Customer
+                    'custbody_rental_unit_county',          //County
+                    'custbody_rental_unit_location_dropdown',  //Customer Location
+                    'custbody_rental_unit_state',           //State
+                    'custbody_sched_a_contract_terms',//Schedule A Contract Terms
+                    'custbody_rental_start_date',           //Rental Start Date
+                    'custbodyrental_unit_monthly_rate',     //Monthly Rate
+                    'custbody_application_type',      //Application Type
+                    //'custbody_to_status'                    //TO Status
+                    'custbody32',//is standby
+                    'custbody33',//standby start
+                    'custbody34',//standby end
+                    'custbody46',//total additional charges
+                    'custbody47',//total charges
+                    'custbody_rental_po_number'
+                ];
+
+              var infoSetFields = [
+                    'subsidiary',                           //Subsidiary
+                    'class',                                    //Operating Area/BU.
+                    'custbody_ae_at_account_manager',       //Account Manager
+                    'custbody_field_sales_rep',       //Field Sales Representative
+                    'custbody_rental_unit_customer',  //Customer
+                    'custbody_rental_unit_county',          //County
+                    'custbody_rental_unit_location_dropdown',//location
+                 //   'custbody_rental_unit_location_dropdown',  //Customer Location
+                    'custbody_rental_unit_state',           //State
+                    'custbody_sched_a_contract_terms',//Schedule A Contract Terms
+                    'custbody_rental_start_date',           //Rental Start Date
+                    'custbodyrental_unit_monthly_rate',     //Monthly Rate
+                   // 'custbody_application_type',      //Application Type
+                    //'custbody_to_status'                    //TO Status
                 ];
 
                 //5 - Price Change Status
@@ -219,6 +281,17 @@ define(['N/record', 'N/log'], function(record, log){
                     log.debug({title: 'afterSubmit - Misc', details: 'copyingFields: ' + arrMisc.join()});
                     _copyFields(arrMisc);
                 }
+                //move status
+              if (intTransferOrderStatus === MOVE_STATUS) {
+                    log.debug({title: 'afterSubmit - Price Change', details: 'copyingFields: ' + moveSetFields.join()});
+                    _copyFields(moveSetFields);
+                }
+              if (intTransferOrderStatus === INFORMATION_UPDATE) {
+                    log.debug({title: 'afterSubmit - Price Change', details: 'copyingFields: ' + infoSetFields.join()});
+                    _copyFields(infoSetFields);
+                }
+              
+              
                 //Release Status
                 if (intTransferOrderStatus === RELEASE_STATUS) {
                     log.debug({title: 'afterSubmit - Release Form', details: 'copyingFields: ' + arrReleaseDeleteFields.join()});
@@ -242,6 +315,17 @@ define(['N/record', 'N/log'], function(record, log){
                         type: 'customrecord_ncfar_asset',
                         id: intRelatedAssetId,
                         values: objValues,
+                        options: {
+                            ignoreMandatoryFields: true
+                        }
+                           });
+                          //added here 8/11
+                      record.submitFields({
+                        type: 'customrecord_ncfar_asset',
+                        id: intRelatedAssetId,
+                        values: {
+                          custrecord_current_location:null
+                          },
                         options: {
                             ignoreMandatoryFields: true
                         }
