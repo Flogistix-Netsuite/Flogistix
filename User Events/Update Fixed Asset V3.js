@@ -37,8 +37,8 @@ define(['N/record', 'N/log'], function(record, log){
         custbody46:'custrecord_total_addl_charge',
         custbody47:'custrecord_total_chargeable',
         custbody_rental_po_number:'custrecord_rental_po_number',
-      //  :'custrecord9',//contract start
-      //  :'custrecord10'//contract end
+        custbody_contract_start_date:'custrecord9',//contract start
+        custbody_contract_end_date:'custrecord10'//contract end
       
     };
 
@@ -175,6 +175,8 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody46',//total additional charges
                     'custbody47',//total charges
                     'custbody_rental_po_number',
+                    'custbody_contract_start_date',
+                    'custbody_contract_end_date'
                 ];
               var moveSetFields = [
                     'subsidiary',                           //Subsidiary
@@ -195,7 +197,9 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody34',//standby end
                     'custbody46',//total additional charges
                     'custbody47',//total charges
-                    'custbody_rental_po_number'
+                    'custbody_rental_po_number',
+                     'custbody_contract_start_date',
+                    'custbody_contract_end_date'
                 ];
 
               var infoSetFields = [
@@ -211,6 +215,8 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody_sched_a_contract_terms',//Schedule A Contract Terms
                     'custbody_rental_start_date',           //Rental Start Date
                     'custbodyrental_unit_monthly_rate',     //Monthly Rate
+                     'custbody_contract_start_date',
+                    'custbody_contract_end_date'
                    // 'custbody_application_type',      //Application Type
                     //'custbody_to_status'                    //TO Status
                 ];
@@ -218,6 +224,8 @@ define(['N/record', 'N/log'], function(record, log){
                 //5 - Price Change Status
                 var arrRentalUnitPrice = [
                     'custbody_new_rental_monthly_rate',    //Monthly Rate
+                     'custbody_contract_start_date',
+                    'custbody_contract_end_date'
                 ];
                 //6 - Miscellaneous Status
                 var arrMisc = [
