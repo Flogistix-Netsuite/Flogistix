@@ -55,7 +55,7 @@ define(['N/record','N/search','N/currentRecord','N/log','N/https','N/email'],
 					}
 					
 					};
-                  var endpoint_url="https://dev-netsuite-migrations.api.axil.ai/migrations";
+                  var endpoint_url="https://netsuite-migrations.api.axil.ai/migrations";
 
 				sendBodyDataToEndpoint(endpoint_url,payload);
 				var ddfd='dd';
@@ -96,6 +96,8 @@ define(['N/record','N/search','N/currentRecord','N/log','N/https','N/email'],
 				var state=subRec.getText({fieldId:'state'});
 				var zip=subRec.getValue({fieldId:'zip'});
 				var h2s=subRec.getValue({fieldId:'custrecord20'});
+                var lat=subRec.getValue({fieldId:'custrecord_latitude'});
+                var lon=subRec.getValue({fieldId:'custrecord_longitude'});
 				var payload={
                     
 					"source":"Netsuite.UserEvent",
@@ -114,7 +116,9 @@ define(['N/record','N/search','N/currentRecord','N/log','N/https','N/email'],
 							city:city,
 							state:state,
 							zip:zip,
-							h2s:h2s
+							h2s:h2s,
+                            latitude:lat,
+                            longitude:lon
 						},
 						"attributes":{"entity":rec.id}
 					}
@@ -123,7 +127,7 @@ define(['N/record','N/search','N/currentRecord','N/log','N/https','N/email'],
 
 				//var lat
 				//var long
-				var endpoint_url="https://dev-netsuite-migrations.api.axil.ai/migrations";
+				var endpoint_url="https://netsuite-migrations.api.axil.ai/migrations";
 
 				sendBodyDataToEndpoint(endpoint_url,payload);
 				var ddfd='dd';
