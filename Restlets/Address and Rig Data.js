@@ -22,9 +22,7 @@ function(search,record) {
          type: "customrecord_ncfar_asset",
          filters:
          [
-            ["custrecord_assettype","anyof","2","13"], 
-      "AND", 
-      ["custrecord_current_location","noneof","@NONE@"]
+            ["custrecord_assettype","anyof","2","13","11"], 
          ],
          columns:
          [
@@ -33,6 +31,10 @@ function(search,record) {
             search.createColumn({name: "custrecord_current_location", label: "Current Location"}),
             search.createColumn({name: "custrecord_current_customer", label: "Currenr customer id"}),
             search.createColumn({name: "custrecord_ae_at_to_status", label:"Current TO Status"}),
+            search.createColumn({name: "custrecord_assetclass",label:"Operating Area"}),
+            search.createColumn({name: "custrecord_fieldservice_mechanic",label:"Mechanic"}),
+            search.createColumn({name: "custrecord_assettype",label:"Asset Type"}),
+            search.createColumn({name: "internalid",label:"Internal ID"})
          ]
           });
          
@@ -62,7 +64,11 @@ function(search,record) {
                     name:resultSet[a].getValue({name:'altname'}),
                     locationId:resultSet[a].getValue({name:'custrecord_current_location'}),
                     customerId:resultSet[a].getValue({name:'custrecord_current_customer'}),
-                    toStatus:resultSet[a].getValue({name:'custrecord_ae_at_to_status'})
+                    toStatus:resultSet[a].getValue({name:'custrecord_ae_at_to_status'}),
+                    operatingAreaId:resultSet[a].getValue({name:'custrecord_assetclass'}),
+                    mechanicId:resultSet[a].getValue({name:'custrecord_fieldservice_mechanic'}),
+                    assetType:resultSet[a].getValue({name:'custrecord_assettype'}),
+                    netsuiteId:resultSet[a].getValue({name:'internalid'})
                   });
                  // nlapiSubmitField('assemblyitem',itemId,'custitem_potential_build',maxBuild);
                 }
