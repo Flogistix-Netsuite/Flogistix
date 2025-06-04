@@ -137,6 +137,8 @@ define(['N/file','N/record', 'N/search','N/runtime','N/task'],
 					var assetName=result.getValue({name:'altname'});
 					var assetId=result.getValue({name:'internalid'});
 					assets.push({name:assetName,id:assetId});
+
+					
 				});
 			});
 			//log.debug("customrecord_ncfar_assetSearchObj result count",searchResultCount);
