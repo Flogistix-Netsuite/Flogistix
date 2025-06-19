@@ -31,13 +31,15 @@ function(search,record) {
             search.createColumn({name: "name", label: "ID"}),
             search.createColumn({name: "altname", label: "Name"}),
             search.createColumn({name: "custrecord_current_location", label: "Current Location"}),
-            search.createColumn({name: "custrecord_current_customer", label: "Currenr customer id"}),
+            search.createColumn({name: "custrecord_current_customer", label: "Current customer id"}),
             search.createColumn({name: "custrecord_ae_at_to_status", label:"Current TO Status"}),
             search.createColumn({name: "custrecord_assetclass",label:"Operating Area"}),
             search.createColumn({name: "custrecord_fieldservice_mechanic",label:"Mechanic"}),
             search.createColumn({name: "custrecord_assettype",label:"Asset Type"}),
             search.createColumn({name: "internalid",label:"Internal ID"}),
-            search.createColumn({name: "custrecord_assetserialno",label:"Asset Serial Number"})
+            search.createColumn({name: "custrecord_assetserialno",label:"Asset Serial Number"}),
+            search.createColumn({name:"custrecord_custasset_skid"}),
+            search.createColumn({name:"custrecordrental_unit_model"})
          ]
           });
          
@@ -72,7 +74,9 @@ function(search,record) {
                     mechanicId:resultSet[a].getValue({name:'custrecord_fieldservice_mechanic'}),
                     assetType:resultSet[a].getValue({name:'custrecord_assettype'}),
                     netsuiteId:resultSet[a].getValue({name:'internalid'}),
-                    assetSerialNumber:resultSet[a].getValue({name:'custrecord_assetserialno'})
+                    assetSerialNumber:resultSet[a].getValue({name:'custrecord_assetserialno'}),
+                    skidId:resultSet[a].getValue({name:'custrecord_custasset_skid'}),
+                    unit_model:resultSet[a].getText({name:'custrecordrental_unit_model'})
                   });
                  // nlapiSubmitField('assemblyitem',itemId,'custitem_potential_build',maxBuild);
                 }
