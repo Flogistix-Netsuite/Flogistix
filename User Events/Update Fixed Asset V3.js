@@ -38,7 +38,8 @@ define(['N/record', 'N/log'], function(record, log){
         custbody47:'custrecord_total_chargeable',
         custbody_rental_po_number:'custrecord_rental_po_number',
         custbody_contract_start_date:'custrecord9',//contract start
-        custbody_contract_end_date:'custrecord10'//contract end
+        custbody_contract_end_date:'custrecord10',//contract end
+        custbody_h2s_ppm:'custrecord_h2s_ppm'
       
     };
 
@@ -113,7 +114,8 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody_rental_start_date',           //Rental Start Date
                     'custbodyrental_unit_monthly_rate',     //Monthly Rate
                     'custbody_application_type',      //Application Type
-                    'custbody_to_status'                    //TO Status
+                    'custbody_to_status',
+                   
                 ];
 
                 //2 Rental Unit Pending Release Status
@@ -175,8 +177,9 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody46',//total additional charges
                     'custbody47',//total charges
                     'custbody_rental_po_number',
-                    'custbody_contract_start_date',
-                    'custbody_contract_end_date'
+                   'custbody_contract_start_date',
+                    'custbody_contract_end_date',//TO Status
+                    'custbody_h2s_ppm'
                 ];
               var moveSetFields = [
                     'subsidiary',                           //Subsidiary
@@ -198,8 +201,9 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody46',//total additional charges
                     'custbody47',//total charges
                     'custbody_rental_po_number',
-                     'custbody_contract_start_date',
-                    'custbody_contract_end_date'
+                 'custbody_contract_start_date',
+                    'custbody_contract_end_date',
+                    'custbody_h2s_ppm'//TO Status
                 ];
 
               var infoSetFields = [
@@ -216,7 +220,7 @@ define(['N/record', 'N/log'], function(record, log){
                     'custbody_rental_start_date',           //Rental Start Date
                     'custbodyrental_unit_monthly_rate',     //Monthly Rate
                      'custbody_contract_start_date',
-                    'custbody_contract_end_date'
+                    'custbody_contract_end_date'//TO Status
                    // 'custbody_application_type',      //Application Type
                     //'custbody_to_status'                    //TO Status
                 ];
@@ -225,7 +229,7 @@ define(['N/record', 'N/log'], function(record, log){
                 var arrRentalUnitPrice = [
                     'custbody_new_rental_monthly_rate',    //Monthly Rate
                      'custbody_contract_start_date',
-                    'custbody_contract_end_date'
+                    'custbody_contract_end_date'//TO Status
                 ];
                 //6 - Miscellaneous Status
                 var arrMisc = [
