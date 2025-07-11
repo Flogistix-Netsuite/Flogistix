@@ -36,9 +36,11 @@
                     var givenname=rec.getValue({fieldId:'firstname'});
                     var email=rec.getValue({fieldId:'email'});
                     var department=rec.getValue({fieldId:'department'})
+
                     var phone=rec.getValue({fieldId:'homephone'});
                   var mobilePhone=rec.getValue({fieldId:'mobilephone'})
                   
+
                     var supervisor=rec.getValue({fieldId:'supervisor'});
                     var operatingAreaId=rec.getValue({fieldId:'class'});
                     var h2sCertified=rec.getValue({fieldId:'custentityh2s_certified'});
