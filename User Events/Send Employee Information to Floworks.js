@@ -36,11 +36,10 @@
                     var givenname=rec.getValue({fieldId:'firstname'});
                     var email=rec.getValue({fieldId:'email'});
                     var department=rec.getValue({fieldId:'department'})
-
                     var phone=rec.getValue({fieldId:'homephone'});
-                  var mobilePhone=rec.getValue({fieldId:'mobilephone'})
+                  var mobilePhone=rec.getValue({fieldId:'mobilephone'});
+                  var inactive=rec.getValue({fieldId:'isinactive'});
                   
-
                     var supervisor=rec.getValue({fieldId:'supervisor'});
                     var operatingAreaId=rec.getValue({fieldId:'class'});
                     var h2sCertified=rec.getValue({fieldId:'custentityh2s_certified'});
@@ -75,14 +74,22 @@
                                       fieldServiceMechanic:fieldServiceMechanic,
                                       fieldServiceAreaManager:fieldServiceAreaManager,
                                       h2sCertified:h2sCertified,
-                                      h2sSpecialist:h2sSpecialist
+                                      h2sSpecialist:h2sSpecialist,
+                                      active:!inactive
                   
                                       
                                     }
 								}
 								
 							};
-					var endpoint_url="https://netsuite-migrations.api.axil.ai/migrations";
+					var endpoint_url=null;
+	
+	if (runtime.envType== "SANDBOX") {
+		endpoint_url="https://dev-netsuite-migrations.api.axil.ai/migrations";
+		}
+	if(runtime.envType== "PRODUCTION"){		
+		endpoint_url="https://netsuite-migrations.api.axil.ai/migrations";	                    
+	}
 					//var endpoint_url="https://dev-netsuite-migrations.api.axil.ai/migrations";
                     sendBodyDataToEndpoint(endpoint_url,payload);
 					//subRec.setValue({fieldId:'custrecord_send_to_axil',value:false})
