@@ -1,0 +1,25 @@
+name: CICD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - sb1
+      - sb2
+      - sb3
+    paths-ignore:
+      - '.github/workflows/**'
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref == 'refs/heads/main' }}
+  cancel-in-progress: true
+
+jobs:
+
+  SDF_Central_Deployment:
+    uses: Flogistix/workflows/.github/workflows/netsuite_cicd_central_workflow.yml@main
+    with:
+      ENVIRONMENT: ${{ github.base_ref }}
+    secrets: inherit

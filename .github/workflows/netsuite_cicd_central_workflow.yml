@@ -1,0 +1,47 @@
+name: NetSuite SuiteCloud Deploy
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        type: string
+        description: 'the environment being deployed (main, sb1, sb2)'
+        required: true
+        
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Setup Java (JDK)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Install SuiteCloud CLI
+        run: npm install -g @oracle/suitecloud-cli
+        env:
+          SUITECLOUD_CLI_ACCEPT_LICENSE: 'true'
+
+      - name: Authenticate SuiteCloud CLI
+        run: |
+          suitecloud account:ci \
+            --savetoken \
+            --account ${{ secrets.ACCOUNT_ID }} \
+            --authid ${{ secrets.AUTH_ID }} \
+            --tokenid ${{ secrets.TOKEN_ID }} \
+            --tokensecret ${{ secrets.TOKEN_SECRET }}
+          
+      - name: Validate SuiteCloud Project
+        run: suitecloud project:validate
+
+      - name: Deploy to NetSuite
+        run: suitecloud project:deploy
