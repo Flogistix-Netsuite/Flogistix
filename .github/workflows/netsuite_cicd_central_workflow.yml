@@ -4,7 +4,7 @@ on:
     inputs:
       ENVIRONMENT:
         type: string
-        description: 'the environment being deployed (main, sb1, sb2)'
+        description: 'the environment being deployed (main, sb1, sb2, sb3)'
         required: true
         
 jobs:
